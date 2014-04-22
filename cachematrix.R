@@ -1,22 +1,23 @@
-## Put comments here that give an overall description of what your
-## functions do
+## Coursera R-Programming
+## Programming Assignment 2
+##
+## This file contains the functions:
+##      makeCacheMatrix()
+##      cacheSolve()
+##
+## They provide a mechanism to avoid unnecessary operations by caching the inverse of the input matrix. 
+## This inversed matrix can be reused in repetitive computations, providing the input data does not change.
+
+
+
 
 ## makeCacheMatrix()
 ## This function creates a special matrix object whose internal data and inverse are cached.
 
 makeCacheMatrix <- function(x = matrix()) {
-        # check x is a square matrix
-        if (!is.matrix(x)){
-                warning("'x' should be a matrix")
-                return(NA)
-        }
-        if (dim(x)[1] != dim(x)[2]){
-                warning("'x' must be square")
-                return(NA)
-        }
         x.inv <- NULL
         set <- function(y) {
-                # check x first
+                # TODO: check x is a square matrix?
                 x <<- y
                 x.inv <<- NULL
         }
@@ -34,17 +35,18 @@ makeCacheMatrix <- function(x = matrix()) {
 
 
 ## cacheSolve() 
-## This function calculates the inverse of a matrix object created by makeCacheMatrix().
-## In case this computation is already done the function returns the cached value of the matrix inverse in order to avoid unnecessary computational load
+## This function takes as input a matrix object created by makeCacheMatrix() and returns its inverse. 
+## In case this computation is already done, the function returns the cached 
+## value of the matrix inverse instead of repeating the computation. 
 
 cacheSolve <- function(x, ...) {
-        invx <- x$getinverse()
-        if(!is.null(invx)) {
+        x.inv <- x$getinverse()
+        if(!is.null(x.inv)) {
                 message("getting cached data")
-                return(invx)
+                return(x.inv)
         }
         data <- x$get()
-        invx <- solve(data, ...)
-        x$setinverse(invx)
-        invx
+        x.inv <- solve(data, ...)
+        x$setinverse(x.inv)
+        x.inv
 }
