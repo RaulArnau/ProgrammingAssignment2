@@ -5,9 +5,15 @@
 ##      makeCacheMatrix()
 ##      cacheSolve()
 ##
-## They provide a mechanism to avoid unnecessary operations by caching the inverse of the input matrix. 
-## This inversed matrix can be reused in repetitive computations, providing the input data does not change.
-
+## They provide a mechanism to avoid unnecessary and time-comsumming operations 
+## by caching the inverse of the input matrix. 
+## The inversed matrix can be reused in repetitive computations, providing 
+## the input data does not change.
+## 
+## Usage:
+## m <- makeCacheMatrix(matrix(rnorm(9), 3, 3)) # input must be a square matrix
+## cacheSolve(m)
+## m$get() %*% m$getinverse()
 
 
 
